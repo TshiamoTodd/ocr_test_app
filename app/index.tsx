@@ -4,19 +4,33 @@ import { ArrowRight, Camera as Cam, File, Plus } from "lucide-react-native";
 import { useState } from "react";
 import { useRouter } from "expo-router";
 import Header from "@/components/Header";
+import * as DocumentPicker from 'expo-document-picker';
  
 
 const Home = () => {
     const [isKeyboardActive, setIsKeyboardActive] = useState(false)
+    const [fileName, setFileName] = useState("")
     const router = useRouter()
     
     const openCamera = () => {
         router.replace("/camera/camera")
     }
 
+    const openFilePicker = async () => {
+        const doc = await DocumentPicker.getDocumentAsync();
+        console.log(doc.assets![0].name);
+        setFileName(doc.assets![0].name)
+
+    }
+
     return (
-        <SafeAreaView className="flex-1 items-center p-3 justify-between">
+        <SafeAreaView className="flex h-full items-center px-3 justify-between">
             <Header title="Home" subTitle="chat" isTransparent={true} />
+
+            <View className="border-cyan-800 h-[70%] border-2 w-full">
+
+            </View>
+
             <View className="flex items-center flex-row justify-between gap-2 px-4">
                 <View>
                     {isKeyboardActive ? (
@@ -34,7 +48,10 @@ const Home = () => {
                                 >
                                     <Cam color={'teal'} size={25} />
                                 </TouchableOpacity>
-                                <TouchableOpacity className="border-cyan-800 p-3 border rounded-full">
+                                <TouchableOpacity 
+                                    className="border-cyan-800 p-3 border rounded-full"
+                                    onPress={openFilePicker}
+                                >
                                     <File color={'teal'} size={25} />
                                 </TouchableOpacity>
                             </View>
