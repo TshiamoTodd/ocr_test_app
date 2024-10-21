@@ -6,25 +6,29 @@ import { router } from 'expo-router'
 const Header = ({
     title, 
     subTitle, 
-    isTransparent, 
+    isTransparent,
+    returnButton 
 }: {
     title: string, 
-    subTitle?:string, 
-    isTransparent: boolean, 
+    subTitle?:string,
+    isTransparent: boolean,
+    returnButton?: boolean
 }) => {
   return (
-    <View className='flex flex-row items-center w-full justify-between px-3 mb-2'>
+    <View className='flex flex-row items-center w-full justify-between px-3 mb-1'>
         <View className='flex'>
             <Text className='text-2xl font-semibold'>{title}</Text>
             <Text>
                 {subTitle}
             </Text>
         </View>
-        <TouchableOpacity
-            onPress={() => router.replace('/')}
-        >
-            <ArrowLeft color={'teal'} size={30} />
-        </TouchableOpacity>
+        {returnButton && (
+            <TouchableOpacity
+                onPress={() => router.replace('/')}
+            >
+                <ArrowLeft color={'teal'} size={30} />
+            </TouchableOpacity>
+        )}
     </View>
   )
 }
